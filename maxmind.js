@@ -125,34 +125,36 @@ var GeoIP = function(filename) {
 	this.reset();
 
 	this.load(filename);
-}
+};
 
-exports.GeoIP = GeoIP;
+exports.GeoIP = function(filename) {
+	return new GeoIP(filename);
+};
 
 GeoIP.prototype.reset = function() {
 	this.buffer = null;
-}
+};
 
 GeoIP.prototype.load = function(filename) {
-	if (filename === undefined)	filename = './GeoIP.dat';
+	if (filename === undefined)	filename = __dirname+'/GeoIP.dat';
 	this.buffer = fs.readFileSync(filename, "binary");
 	
 	this.record_length = 3;
 	
 	this.databaseSegments = this.GEOIP_COUNTRY_BEGIN;
-}
+};
 
 GeoIP.prototype.getCountryNameById = function(id) {
 	return this.GEOIP_COUNTRY_NAMES[id];
-}
+};
 
 GeoIP.prototype.getCountryCodeById = function(id) {
 	return this.GEOIP_COUNTRY_CODES[id];
-}
+};
 
 GeoIP.prototype.getCountryCode3ById = function(id) {
 	return this.GEOIP_COUNTRY_CODES3[id];
-}
+};
 
 GeoIP.prototype.getCountry = function(ipaddress, type) {
 	var c = this._seekCountry(ipaddress) - this.GEOIP_COUNTRY_BEGIN;
@@ -166,7 +168,7 @@ GeoIP.prototype.getCountry = function(ipaddress, type) {
 		return c;
 	else
 		return this.GEOIP_COUNTRY_NAMES[c];
-}
+};
 
 GeoIP.prototype._seekCountry = function(ipaddress) {
 	var ipoctets = ipaddress.split(/\./g);
@@ -203,4 +205,4 @@ GeoIP.prototype._seekCountry = function(ipaddress) {
 	console.error("maxmind error");
 
 	return false; // never should get here...
-}
+};
