@@ -5,7 +5,15 @@ Simple and quick search on maxmind files to identify the country.
 
 Fork for https://github.com/roymap/node-maxmind-native with new node.js version support and build in maxming geoip file.
 
-## Example
+Install
+=============
+
+	npm install maxmind-native
+
+
+Example
+=============
+
 	// build in maxmind file
 	var geoip = new require('maxmind-native').GeoIP();
 	// custom maxmind file
